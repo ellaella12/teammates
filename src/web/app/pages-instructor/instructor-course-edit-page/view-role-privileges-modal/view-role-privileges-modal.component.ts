@@ -18,6 +18,7 @@ export class ViewRolePrivilegesModalComponent {
   @Input()
   instructorPrivilege: InstructorPermissionSet = {
     canModifyCourse: false,
+    canViewSessionSettings: false,
     canModifySession: false,
     canModifyStudent: false,
     canModifyInstructor: false,

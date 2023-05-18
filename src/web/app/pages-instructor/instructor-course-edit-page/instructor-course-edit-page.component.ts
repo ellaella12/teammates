@@ -92,6 +92,7 @@ export class InstructorCourseEditPageComponent implements OnInit {
   currInstructorGoogleId: string = '';
   currInstructorCoursePrivilege: InstructorPermissionSet = {
     canModifyCourse: true,
+    canViewSessionSettings: true,
     canModifySession: true,
     canModifyStudent: true,
     canModifyInstructor: true,
@@ -117,6 +118,7 @@ export class InstructorCourseEditPageComponent implements OnInit {
 
     permission: {
       privilege: {
+        canViewSessionSettings: false,
         canModifyCourse: false,
         canModifySession: false,
         canModifyStudent: false,
@@ -147,15 +149,15 @@ export class InstructorCourseEditPageComponent implements OnInit {
   isSavingNewInstructor: boolean = false;
 
   constructor(private route: ActivatedRoute,
-              private navigationService: NavigationService,
-              private studentService: StudentService,
-              private instructorService: InstructorService,
-              private feedbackSessionsService: FeedbackSessionsService,
-              private statusMessageService: StatusMessageService,
-              private courseService: CourseService,
-              private authService: AuthService,
-              private ngbModal: NgbModal,
-              private simpleModalService: SimpleModalService) { }
+    private navigationService: NavigationService,
+    private studentService: StudentService,
+    private instructorService: InstructorService,
+    private feedbackSessionsService: FeedbackSessionsService,
+    private statusMessageService: StatusMessageService,
+    private courseService: CourseService,
+    private authService: AuthService,
+    private ngbModal: NgbModal,
+    private simpleModalService: SimpleModalService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((queryParams: any) => {
@@ -173,9 +175,9 @@ export class InstructorCourseEditPageComponent implements OnInit {
         const sessions: FeedbackSessions = vals[1] as FeedbackSessions;
 
         this.allSections =
-            Array.from(new Set(students.students.map((value: Student) => value.sectionName)));
+          Array.from(new Set(students.students.map((value: Student) => value.sectionName)));
         this.allSessions =
-            sessions.feedbackSessions.map((session: FeedbackSession) => session.feedbackSessionName);
+          sessions.feedbackSessions.map((session: FeedbackSession) => session.feedbackSessionName);
 
         this.loadCourseInstructors();
       });
@@ -225,7 +227,7 @@ export class InstructorCourseEditPageComponent implements OnInit {
     this.courseService.binCourse(this.courseId).subscribe({
       next: (course: Course) => {
         this.navigationService.navigateWithSuccessMessage('/web/instructor/courses',
-            `The course ${course.courseId} has been deleted. You can restore it from the Recycle Bin manually.`);
+          `The course ${course.courseId} has been deleted. You can restore it from the Recycle Bin manually.`);
       },
       error: (resp: ErrorMessageOutput) => {
         this.statusMessageService.showErrorToast(resp.error.message);
@@ -267,23 +269,23 @@ export class InstructorCourseEditPageComponent implements OnInit {
       courseId: this.courseId,
       intent: Intent.FULL_DETAIL,
     })
-        .subscribe({
-          next: (resp: Instructors) => {
-            this.instructorDetailPanels = resp.instructors.map((i: Instructor) => ({
-              originalInstructor: { ...i },
-              originalPanel: this.getInstructorEditPanelModel(i),
-              editPanel: this.getInstructorEditPanelModel(i),
-              isSavingInstructorEdit: false,
-            }));
-            this.instructorDetailPanels.forEach((panel: InstructorEditPanelDetail) => {
-              this.loadPermissionForInstructor(panel);
-            });
-          },
-          error: (resp: ErrorMessageOutput) => {
-            this.hasInstructorsLoadingFailed = true;
-            this.statusMessageService.showErrorToast(resp.error.message);
-          },
-        });
+      .subscribe({
+        next: (resp: Instructors) => {
+          this.instructorDetailPanels = resp.instructors.map((i: Instructor) => ({
+            originalInstructor: { ...i },
+            originalPanel: this.getInstructorEditPanelModel(i),
+            editPanel: this.getInstructorEditPanelModel(i),
+            isSavingInstructorEdit: false,
+          }));
+          this.instructorDetailPanels.forEach((panel: InstructorEditPanelDetail) => {
+            this.loadPermissionForInstructor(panel);
+          });
+        },
+        error: (resp: ErrorMessageOutput) => {
+          this.hasInstructorsLoadingFailed = true;
+          this.statusMessageService.showErrorToast(resp.error.message);
+        },
+      });
   }
 
   /**
@@ -311,6 +313,7 @@ export class InstructorCourseEditPageComponent implements OnInit {
       permission: {
         privilege: {
           canModifyCourse: false,
+          canViewSessionSettings: false,
           canModifySession: false,
           canModifyStudent: false,
           canModifyInstructor: false,
@@ -332,7 +335,7 @@ export class InstructorCourseEditPageComponent implements OnInit {
    */
   viewRolePrivilegeModel(role: InstructorPermissionRole): void {
     const modalRef: NgbModalRef = this.ngbModal.open(ViewRolePrivilegesModalComponent);
-    modalRef.result.then(() => {}, () => {});
+    modalRef.result.then(() => { }, () => { });
     let privilege: InstructorPermissionSet;
     switch (role) {
       case InstructorPermissionRole.INSTRUCTOR_PERMISSION_ROLE_COOWNER:
@@ -373,10 +376,10 @@ export class InstructorCourseEditPageComponent implements OnInit {
     panelDetail.editPanel.isSavingInstructorEdit = true;
     const reqBody: InstructorCreateRequest = {
       id: panelDetail.originalInstructor.joinState === JoinState.JOINED
-          ? panelDetail.originalInstructor.googleId : undefined,
+        ? panelDetail.originalInstructor.googleId : undefined,
       name: panelDetail.editPanel.name,
       email: panelDetail.originalInstructor.joinState === JoinState.JOINED
-          ? panelDetail.editPanel.email : panelDetail.originalInstructor.email,
+        ? panelDetail.editPanel.email : panelDetail.originalInstructor.email,
       role: panelDetail.editPanel.role,
       displayName: panelDetail.editPanel.displayedToStudentsAs,
       isDisplayedToStudent: panelDetail.editPanel.isDisplayedToStudents,
@@ -416,15 +419,15 @@ export class InstructorCourseEditPageComponent implements OnInit {
     const panelDetail: InstructorEditPanelDetail = this.instructorDetailPanels[index];
     const isDeletingSelf: boolean = panelDetail.originalInstructor.googleId === this.currInstructorGoogleId;
     const modalContent: string = isDeletingSelf
-        ? `Are you sure you want to delete your instructor role
+      ? `Are you sure you want to delete your instructor role
         from the course <strong>${panelDetail.originalInstructor.courseId}</strong>?
         You will not be able to access the course anymore.`
-        : `Are you sure you want to delete the instructor <strong>${panelDetail.originalInstructor.name}</strong>
+      : `Are you sure you want to delete the instructor <strong>${panelDetail.originalInstructor.name}</strong>
         from the course <strong>${panelDetail.originalInstructor.courseId}</strong>?
         He/she will not be able to access the course anymore.`;
     const modalRef: NgbModalRef = this.simpleModalService.openConfirmationModal(
-        `Delete instructor <strong>${panelDetail.originalInstructor.name}</strong>?`,
-        SimpleModalType.DANGER, modalContent);
+      `Delete instructor <strong>${panelDetail.originalInstructor.name}</strong>?`,
+      SimpleModalType.DANGER, modalContent);
 
     modalRef.result.then(() => {
       this.instructorService.deleteInstructor({
@@ -434,7 +437,7 @@ export class InstructorCourseEditPageComponent implements OnInit {
         next: () => {
           if (panelDetail.originalInstructor.googleId === this.currInstructorGoogleId) {
             this.navigationService.navigateWithSuccessMessage(
-                '/web/instructor/courses', 'Instructor is successfully deleted.');
+              '/web/instructor/courses', 'Instructor is successfully deleted.');
           } else {
             this.instructorDetailPanels.splice(index, 1);
             this.statusMessageService.showSuccessToast('Instructor is successfully deleted.');
@@ -444,7 +447,7 @@ export class InstructorCourseEditPageComponent implements OnInit {
           this.statusMessageService.showErrorToast(resp.error.message);
         },
       });
-    }, () => {});
+    }, () => { });
   }
 
   /**
@@ -455,20 +458,20 @@ export class InstructorCourseEditPageComponent implements OnInit {
     const modalContent: string = `Do you wish to re-send the invitation email to instructor
       ${panelDetail.originalInstructor.name} from course ${panelDetail.originalInstructor.courseId}?`;
     const modalRef: NgbModalRef = this.simpleModalService.openConfirmationModal(
-        'Re-send invitation email?', SimpleModalType.INFO, modalContent);
+      'Re-send invitation email?', SimpleModalType.INFO, modalContent);
 
     modalRef.result.then(() => {
       this.courseService
-          .remindInstructorForJoin(panelDetail.originalInstructor.courseId, panelDetail.originalInstructor.email)
-          .subscribe({
-            next: (resp: MessageOutput) => {
-              this.statusMessageService.showSuccessToast(resp.message);
-            },
-            error: (resp: ErrorMessageOutput) => {
-              this.statusMessageService.showErrorToast(resp.error.message);
-            },
-          });
-    }, () => {});
+        .remindInstructorForJoin(panelDetail.originalInstructor.courseId, panelDetail.originalInstructor.email)
+        .subscribe({
+          next: (resp: MessageOutput) => {
+            this.statusMessageService.showSuccessToast(resp.message);
+          },
+          error: (resp: ErrorMessageOutput) => {
+            this.statusMessageService.showErrorToast(resp.error.message);
+          },
+        });
+    }, () => { });
   }
 
   /**
@@ -485,58 +488,59 @@ export class InstructorCourseEditPageComponent implements OnInit {
     } as InstructorCreateRequest;
 
     this.instructorService.createInstructor({ courseId: this.courseId, requestBody: reqBody })
-        .pipe(finalize(() => {
-          this.isSavingNewInstructor = false;
-        }))
-        .subscribe({
-          next: (resp: Instructor) => {
-            const newDetailPanels: InstructorEditPanelDetail = {
-              originalInstructor: { ...resp },
-              originalPanel: this.getInstructorEditPanelModel(resp),
-              editPanel: this.getInstructorEditPanelModel(resp),
-            };
-            newDetailPanels.editPanel.permission = this.newInstructorPanel.permission;
-            newDetailPanels.originalPanel = JSON.parse(JSON.stringify(newDetailPanels.editPanel));
+      .pipe(finalize(() => {
+        this.isSavingNewInstructor = false;
+      }))
+      .subscribe({
+        next: (resp: Instructor) => {
+          const newDetailPanels: InstructorEditPanelDetail = {
+            originalInstructor: { ...resp },
+            originalPanel: this.getInstructorEditPanelModel(resp),
+            editPanel: this.getInstructorEditPanelModel(resp),
+          };
+          newDetailPanels.editPanel.permission = this.newInstructorPanel.permission;
+          newDetailPanels.originalPanel = JSON.parse(JSON.stringify(newDetailPanels.editPanel));
 
-            this.instructorDetailPanels.push(newDetailPanels);
-            this.statusMessageService.showSuccessToast(`"The instructor ${resp.name} has been added successfully.
+          this.instructorDetailPanels.push(newDetailPanels);
+          this.statusMessageService.showSuccessToast(`"The instructor ${resp.name} has been added successfully.
           An email containing how to 'join' this course will be sent to ${resp.email} in a few minutes."`);
 
-            this.updatePrivilegeForInstructor(newDetailPanels.originalInstructor, newDetailPanels.editPanel.permission);
+          this.updatePrivilegeForInstructor(newDetailPanels.originalInstructor, newDetailPanels.editPanel.permission);
 
-            this.isAddingNewInstructor = false;
-            this.newInstructorPanel = {
-              googleId: '',
-              courseId: '',
-              email: '',
-              isDisplayedToStudents: true,
-              displayedToStudentsAs: '',
-              name: '',
-              role: InstructorPermissionRole.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
-              joinState: JoinState.NOT_JOINED,
+          this.isAddingNewInstructor = false;
+          this.newInstructorPanel = {
+            googleId: '',
+            courseId: '',
+            email: '',
+            isDisplayedToStudents: true,
+            displayedToStudentsAs: '',
+            name: '',
+            role: InstructorPermissionRole.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
+            joinState: JoinState.NOT_JOINED,
 
-              permission: {
-                privilege: {
-                  canModifyCourse: true,
-                  canModifySession: true,
-                  canModifyStudent: true,
-                  canModifyInstructor: true,
-                  canViewStudentInSections: true,
-                  canModifySessionCommentsInSections: true,
-                  canViewSessionInSections: true,
-                  canSubmitSessionInSections: true,
-                },
-                sectionLevel: [],
+            permission: {
+              privilege: {
+                canViewSessionSettings: true,
+                canModifyCourse: true,
+                canModifySession: true,
+                canModifyStudent: true,
+                canModifyInstructor: true,
+                canViewStudentInSections: true,
+                canModifySessionCommentsInSections: true,
+                canViewSessionInSections: true,
+                canSubmitSessionInSections: true,
               },
+              sectionLevel: [],
+            },
 
-              isEditing: true,
-              isSavingInstructorEdit: false,
-            };
-          },
-          error: (resp: ErrorMessageOutput) => {
-            this.statusMessageService.showErrorToast(resp.error.message);
-          },
-        });
+            isEditing: true,
+            isSavingInstructorEdit: false,
+          };
+        },
+        error: (resp: ErrorMessageOutput) => {
+          this.statusMessageService.showErrorToast(resp.error.message);
+        },
+      });
   }
 
   /**
@@ -568,7 +572,7 @@ export class InstructorCourseEditPageComponent implements OnInit {
           const sessionLevelPermission: InstructorSessionLevelPermission = {
             sessionName,
             privilege: (resp.privileges.sessionLevel[sectionName] || {})[sessionName]
-                || sectionLevelPermission.privilege,
+              || sectionLevelPermission.privilege,
           };
           sectionLevelPermission.sessionLevel.push(sessionLevelPermission);
         });
@@ -576,44 +580,44 @@ export class InstructorCourseEditPageComponent implements OnInit {
       });
 
       permission.sectionLevel = permission.sectionLevel
-          .filter((sectionLevelPermission: InstructorSectionLevelPermission) => {
-            // discard section level permission that is consistent with the overall permission
-            if (sectionLevelPermission.privilege.canViewStudentInSections
-                !== permission.privilege.canViewStudentInSections) {
-              return true;
-            }
-            if (sectionLevelPermission.privilege.canModifySessionCommentsInSections
-                !== permission.privilege.canModifySessionCommentsInSections) {
-              return true;
-            }
-            if (sectionLevelPermission.privilege.canViewSessionInSections
-                !== permission.privilege.canViewSessionInSections) {
-              return true;
-            }
-            if (sectionLevelPermission.privilege.canSubmitSessionInSections
-                !== permission.privilege.canSubmitSessionInSections) {
-              return true;
-            }
+        .filter((sectionLevelPermission: InstructorSectionLevelPermission) => {
+          // discard section level permission that is consistent with the overall permission
+          if (sectionLevelPermission.privilege.canViewStudentInSections
+            !== permission.privilege.canViewStudentInSections) {
+            return true;
+          }
+          if (sectionLevelPermission.privilege.canModifySessionCommentsInSections
+            !== permission.privilege.canModifySessionCommentsInSections) {
+            return true;
+          }
+          if (sectionLevelPermission.privilege.canViewSessionInSections
+            !== permission.privilege.canViewSessionInSections) {
+            return true;
+          }
+          if (sectionLevelPermission.privilege.canSubmitSessionInSections
+            !== permission.privilege.canSubmitSessionInSections) {
+            return true;
+          }
 
-            return sectionLevelPermission.sessionLevel
-                .some((sessionLevelPermission: InstructorSessionLevelPermission) => {
-                  return sectionLevelPermission.privilege.canModifySessionCommentsInSections
-                          !== sessionLevelPermission.privilege.canModifySessionCommentsInSections
-                      || sectionLevelPermission.privilege.canViewSessionInSections
-                          !== sessionLevelPermission.privilege.canViewSessionInSections
-                      || sectionLevelPermission.privilege.canSubmitSessionInSections
-                          !== sessionLevelPermission.privilege.canSubmitSessionInSections;
-                });
-          });
+          return sectionLevelPermission.sessionLevel
+            .some((sessionLevelPermission: InstructorSessionLevelPermission) => {
+              return sectionLevelPermission.privilege.canModifySessionCommentsInSections
+                !== sessionLevelPermission.privilege.canModifySessionCommentsInSections
+                || sectionLevelPermission.privilege.canViewSessionInSections
+                !== sessionLevelPermission.privilege.canViewSessionInSections
+                || sectionLevelPermission.privilege.canSubmitSessionInSections
+                !== sessionLevelPermission.privilege.canSubmitSessionInSections;
+            });
+        });
 
       permission.sectionLevel.forEach((sectionLevel: InstructorSectionLevelPermission) => {
         if (sectionLevel.sessionLevel.every((sessionLevel: InstructorSessionLevelPermission) => {
           return sectionLevel.privilege.canModifySessionCommentsInSections
-                  === sessionLevel.privilege.canModifySessionCommentsInSections
-              && sectionLevel.privilege.canViewSessionInSections
-                  === sessionLevel.privilege.canViewSessionInSections
-              && sectionLevel.privilege.canSubmitSessionInSections
-                  === sessionLevel.privilege.canSubmitSessionInSections;
+            === sessionLevel.privilege.canModifySessionCommentsInSections
+            && sectionLevel.privilege.canViewSessionInSections
+            === sessionLevel.privilege.canViewSessionInSections
+            && sectionLevel.privilege.canSubmitSessionInSections
+            === sessionLevel.privilege.canSubmitSessionInSections;
         })) {
           // session level is consistent with the section level, we can remove it.
           sectionLevel.sessionLevel = [];
@@ -656,7 +660,7 @@ export class InstructorCourseEditPageComponent implements OnInit {
         // privileges updated
         // filter out empty permission setting
         permission.sectionLevel = permission.sectionLevel.filter(
-            (sectionLevel: InstructorSectionLevelPermission) => sectionLevel.sectionNames.length !== 0);
+          (sectionLevel: InstructorSectionLevelPermission) => sectionLevel.sectionNames.length !== 0);
       },
       error: (resp: ErrorMessageOutput) => {
         this.statusMessageService.showErrorToast(resp.error.message);

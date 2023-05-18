@@ -41,6 +41,7 @@ export class CustomPrivilegeSettingPanelComponent {
   permission: InstructorOverallPermission = {
     privilege: {
       canModifyCourse: false,
+      canViewSessionSettings: false,
       canModifySession: false,
       canModifyStudent: false,
       canModifyInstructor: false,
@@ -66,7 +67,7 @@ export class CustomPrivilegeSettingPanelComponent {
    */
   hasSectionLevelPermission(sectionName: string): boolean {
     return this.permission.sectionLevel.some(
-        (sectionLevel: InstructorSectionLevelPermission) => sectionLevel.sectionNames.includes(sectionName));
+      (sectionLevel: InstructorSectionLevelPermission) => sectionLevel.sectionNames.includes(sectionName));
   }
 
   /**
@@ -74,9 +75,9 @@ export class CustomPrivilegeSettingPanelComponent {
    */
   get hasSectionLevelPermissionForAllSections(): boolean {
     return this.permission.sectionLevel.length >= this.allSections.length
-        || this.permission.sectionLevel
-            .map((section: InstructorSectionLevelPermission) => section.sectionNames.length)
-            .reduce((prev: number, curr: number) => prev + curr, 0) >= this.allSections.length;
+      || this.permission.sectionLevel
+        .map((section: InstructorSectionLevelPermission) => section.sectionNames.length)
+        .reduce((prev: number, curr: number) => prev + curr, 0) >= this.allSections.length;
   }
 
   /**
@@ -103,7 +104,7 @@ export class CustomPrivilegeSettingPanelComponent {
    * Triggers session level permission change at index.
    */
   triggerSessionLevelPermissionChange(
-      indexSection: number, indexSession: number, privilegeName: string, shouldEnabled: boolean): void {
+    indexSection: number, indexSession: number, privilegeName: string, shouldEnabled: boolean): void {
     const permission: InstructorOverallPermission = this.deepCopy(this.permission);
     (permission.sectionLevel[indexSection].sessionLevel[indexSession].privilege as any)[privilegeName] = shouldEnabled;
 
@@ -119,6 +120,7 @@ export class CustomPrivilegeSettingPanelComponent {
       sectionNames: [],
       privilege: {
         canModifyCourse: false,
+        canViewSessionSettings: false,
         canModifySession: false,
         canModifyStudent: false,
         canModifyInstructor: false,
@@ -143,6 +145,7 @@ export class CustomPrivilegeSettingPanelComponent {
       sessionName: name,
       privilege: {
         canModifyCourse: false,
+        canViewSessionSettings: false,
         canModifySession: false,
         canModifyStudent: false,
         canModifyInstructor: false,

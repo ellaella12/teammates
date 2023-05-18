@@ -73,6 +73,7 @@ export class InstructorEditPanelComponent {
     permission: {
       privilege: {
         canModifyCourse: false,
+        canViewSessionSettings: false,
         canModifySession: false,
         canModifyStudent: false,
         canModifyInstructor: false,
@@ -93,6 +94,7 @@ export class InstructorEditPanelComponent {
   @Input()
   currInstructorCoursePrivilege: InstructorPermissionSet = {
     canModifyCourse: true,
+    canViewSessionSettings: true,
     canModifySession: true,
     canModifyStudent: true,
     canModifyInstructor: true,

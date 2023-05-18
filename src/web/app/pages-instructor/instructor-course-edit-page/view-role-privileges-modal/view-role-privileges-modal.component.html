@@ -26,6 +26,9 @@
       <br>
     </div>
     <div class="col-sm-6">
+      <input disabled type="checkbox" [checked]="instructorPrivilege.canViewSessionSettings">
+      Sessions: View Session and Question Settings
+      <br>
       <input disabled type="checkbox" [checked]="instructorPrivilege.canSubmitSessionInSections">
       Sessions: Submit Responses and Add Comments
       <br>
