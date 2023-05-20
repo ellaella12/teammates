@@ -24,6 +24,7 @@ public final class InstructorPrivileges {
         PRIVILEGES_COOWNER.setCanModifyCourse(true);
         PRIVILEGES_COOWNER.setCanModifyInstructor(true);
         PRIVILEGES_COOWNER.setCanModifySession(true);
+        PRIVILEGES_COOWNER.setCanViewSessionSettings(true);
         PRIVILEGES_COOWNER.setCanModifyStudent(true);
         PRIVILEGES_COOWNER.setCanViewStudentInSections(true);
         PRIVILEGES_COOWNER.setCanViewSessionInSections(true);
@@ -33,6 +34,7 @@ public final class InstructorPrivileges {
         PRIVILEGES_MANAGER.setCanModifyCourse(false);
         PRIVILEGES_MANAGER.setCanModifyInstructor(true);
         PRIVILEGES_MANAGER.setCanModifySession(true);
+        PRIVILEGES_MANAGER.setCanViewSessionSettings(true);
         PRIVILEGES_MANAGER.setCanModifyStudent(true);
         PRIVILEGES_MANAGER.setCanViewStudentInSections(true);
         PRIVILEGES_MANAGER.setCanViewSessionInSections(true);
@@ -42,6 +44,7 @@ public final class InstructorPrivileges {
         PRIVILEGES_OBSERVER.setCanModifyCourse(false);
         PRIVILEGES_OBSERVER.setCanModifyInstructor(false);
         PRIVILEGES_OBSERVER.setCanModifySession(false);
+        PRIVILEGES_OBSERVER.setCanViewSessionSettings(true);
         PRIVILEGES_OBSERVER.setCanModifyStudent(false);
         PRIVILEGES_OBSERVER.setCanViewStudentInSections(true);
         PRIVILEGES_OBSERVER.setCanViewSessionInSections(true);
@@ -51,6 +54,7 @@ public final class InstructorPrivileges {
         PRIVILEGES_TUTOR.setCanModifyCourse(false);
         PRIVILEGES_TUTOR.setCanModifyInstructor(false);
         PRIVILEGES_TUTOR.setCanModifySession(false);
+        PRIVILEGES_TUTOR.setCanViewSessionSettings(false);
         PRIVILEGES_TUTOR.setCanModifyStudent(false);
         PRIVILEGES_TUTOR.setCanViewStudentInSections(true);
         PRIVILEGES_TUTOR.setCanViewSessionInSections(true);
@@ -60,6 +64,7 @@ public final class InstructorPrivileges {
         PRIVILEGES_CUSTOM.setCanModifyCourse(false);
         PRIVILEGES_CUSTOM.setCanModifyInstructor(false);
         PRIVILEGES_CUSTOM.setCanModifySession(false);
+        PRIVILEGES_CUSTOM.setCanViewSessionSettings(false);
         PRIVILEGES_CUSTOM.setCanModifyStudent(false);
         PRIVILEGES_CUSTOM.setCanViewStudentInSections(false);
         PRIVILEGES_CUSTOM.setCanViewSessionInSections(false);
@@ -71,6 +76,7 @@ public final class InstructorPrivileges {
             Const.InstructorPermissions.CAN_MODIFY_COURSE,
             Const.InstructorPermissions.CAN_MODIFY_INSTRUCTOR,
             Const.InstructorPermissions.CAN_MODIFY_SESSION,
+            Const.InstructorPermissions.CAN_VIEW_SESSION_SETTINGS,
             Const.InstructorPermissions.CAN_MODIFY_STUDENT,
     };
 
@@ -220,6 +226,7 @@ public final class InstructorPrivileges {
         courseLevel.setCanModifyCourse(defaultPrivileges.isCanModifyCourse());
         courseLevel.setCanModifyInstructor(defaultPrivileges.isCanModifyInstructor());
         courseLevel.setCanModifySession(defaultPrivileges.isCanModifySession());
+        courseLevel.setCanViewSessionSettings(defaultPrivileges.isCanViewSessionSettings());
         courseLevel.setCanModifyStudent(defaultPrivileges.isCanModifyStudent());
         courseLevel.setCanViewStudentInSections(defaultPrivileges.isCanViewStudentInSections());
         courseLevel.setCanViewSessionInSections(defaultPrivileges.isCanViewSessionInSections());
@@ -402,9 +409,13 @@ public final class InstructorPrivileges {
      * prerequisite privileges if they have not been granted yet.
      */
     public void validatePrivileges() {
+        if(this.courseLevel.isCanModifySession()) {
+            this.courseLevel.setCanViewSessionSettings(true);
+        }
         if (this.courseLevel.isCanModifySessionCommentsInSections()) {
             this.courseLevel.setCanViewSessionInSections(true);
         }
+
         for (InstructorPermissionSet sectionMap : this.sectionLevel.values()) {
             if (sectionMap.isCanModifySessionCommentsInSections()) {
                 sectionMap.setCanViewSessionInSections(true);

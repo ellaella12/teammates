@@ -13,6 +13,7 @@ public class InstructorPermissionSet {
     private boolean canModifyCourse;
     private boolean canModifyInstructor;
     private boolean canModifySession;
+    private boolean canViewSessionSettings;
     private boolean canModifyStudent;
     private boolean canViewStudentInSections;
     private boolean canViewSessionInSections;
@@ -41,6 +42,12 @@ public class InstructorPermissionSet {
 
     public void setCanModifySession(boolean canModifySession) {
         this.canModifySession = canModifySession;
+    }
+
+    public boolean isCanViewSessionSettings() { return canViewSessionSettings; }
+
+    public void setCanViewSessionSettings(boolean canViewSessionSettings) {
+        this.canViewSessionSettings = canViewSessionSettings;
     }
 
     public boolean isCanModifyStudent() {
