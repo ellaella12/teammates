@@ -112,8 +112,8 @@
 
             <a *ngIf="!sessionsTableRowModel.instructorPrivilege.canModifySession 
           && sessionsTableRowModel.instructorPrivilege.canViewSessionSettings"
-              tmRouterLink="/web/instructor/sessions/edit"
-              [queryParams]="{ courseid: sessionsTableRowModel.feedbackSession.courseId, fsname: sessionsTableRowModel.feedbackSession.feedbackSessionName, editingMode: false }">
+              tmRouterLink="/web/instructor/sessions/view"
+              [queryParams]="{ courseid: sessionsTableRowModel.feedbackSession.courseId, fsname: sessionsTableRowModel.feedbackSession.feedbackSessionName }">
               <ng-container *ngTemplateOutlet="viewSessionBtn"></ng-container>
             </a>
 

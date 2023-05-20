@@ -19,6 +19,10 @@ export enum QuestionEditFormMode {
    * Editing the existing feedback question.
    */
   EDIT,
+  /**
+   * Viewing the existing feedback question.
+   */
+  VIEW,
 }
 
 /**

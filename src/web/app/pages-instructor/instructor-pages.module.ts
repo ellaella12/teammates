@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./instructor-home-page/instructor-home-page.module')
-        .then((m: any) => m.InstructorHomePageModule),
+      .then((m: any) => m.InstructorHomePageModule),
   },
   {
     path: 'courses',
@@ -20,12 +20,12 @@ const routes: Routes = [
           pageTitle: 'Courses',
         },
         loadChildren: () => import('./instructor-courses-page/instructor-courses-page.module')
-            .then((m: any) => m.InstructorCoursesPageModule),
+          .then((m: any) => m.InstructorCoursesPageModule),
       },
       {
         path: 'edit',
         loadChildren: () => import('./instructor-course-edit-page/instructor-course-edit-page.module')
-            .then((m: any) => m.InstructorCourseEditPageModule),
+          .then((m: any) => m.InstructorCourseEditPageModule),
         data: {
           pageTitle: 'Edit Course Details',
         },
@@ -33,17 +33,17 @@ const routes: Routes = [
       {
         path: 'details',
         loadChildren: () => import('./instructor-course-details-page/instructor-course-details-page.module')
-            .then((m: any) => m.InstructorCourseDetailsPageModule),
+          .then((m: any) => m.InstructorCourseDetailsPageModule),
       },
       {
         path: 'enroll',
         loadChildren: () => import('./instructor-course-enroll-page/instructor-course-enroll-page.module')
-            .then((m: any) => m.InstructorCourseEnrollPageModule),
+          .then((m: any) => m.InstructorCourseEnrollPageModule),
       },
       {
         path: 'student-activity-logs',
         loadChildren: () => import('./instructor-student-activity-logs/instructor-student-activity-logs.module')
-            .then((m: any) => m.InstructorStudentActivityLogsModule),
+          .then((m: any) => m.InstructorStudentActivityLogsModule),
       },
       {
         path: 'student',
@@ -51,14 +51,14 @@ const routes: Routes = [
           {
             path: 'details',
             loadChildren: () =>
-                import('./instructor-course-student-details-page/instructor-course-student-details-page.module')
-                    .then((m: any) => m.InstructorCourseStudentDetailsPageModule),
+              import('./instructor-course-student-details-page/instructor-course-student-details-page.module')
+                .then((m: any) => m.InstructorCourseStudentDetailsPageModule),
           },
           {
             path: 'edit',
             loadChildren: () =>
-                import('./instructor-course-student-edit-page/instructor-course-student-edit-page.module')
-                    .then((m: any) => m.InstructorCourseStudentEditPageModule),
+              import('./instructor-course-student-edit-page/instructor-course-student-edit-page.module')
+                .then((m: any) => m.InstructorCourseStudentEditPageModule),
             data: {
               pageTitle: 'Edit Student Details',
             },
@@ -73,7 +73,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('./instructor-sessions-page/instructor-sessions-page.module')
-            .then((m: any) => m.InstructorSessionsPageModule),
+          .then((m: any) => m.InstructorSessionsPageModule),
         data: {
           pageTitle: 'Feedback Sessions',
         },
@@ -90,15 +90,23 @@ const routes: Routes = [
       {
         path: 'edit',
         loadChildren: () => import('./instructor-session-edit-page/instructor-session-edit-page.module')
-            .then((m: any) => m.InstructorSessionEditPageModule),
+          .then((m: any) => m.InstructorSessionEditPageModule),
         data: {
           pageTitle: 'Edit Feedback Session',
         },
       },
       {
+        path: 'view',
+        loadChildren: () => import('./instructor-session-view-page/instructor-session-view-page.module')
+          .then((m: any) => m.InstructorSessionViewPageModule),
+        data: {
+          pageTitle: 'View Feedback Session'
+        }
+      },
+      {
         path: 'submission',
         loadChildren: () => import('../pages-session/session-submission-page/session-submission-page.module')
-            .then((m: any) => m.SessionSubmissionPageModule),
+          .then((m: any) => m.SessionSubmissionPageModule),
         data: {
           pageTitle: 'Submit Feedback',
           intent: Intent.INSTRUCTOR_SUBMISSION,
@@ -107,7 +115,7 @@ const routes: Routes = [
       {
         path: 'result',
         loadChildren: () => import('../pages-session/session-result-page/session-result-page.module')
-            .then((m: any) => m.SessionResultPageModule),
+          .then((m: any) => m.SessionResultPageModule),
         data: {
           intent: Intent.INSTRUCTOR_RESULT,
         },
@@ -115,7 +123,7 @@ const routes: Routes = [
       {
         path: 'report',
         loadChildren: () => import('./instructor-session-result-page/instructor-session-result-page.module')
-            .then((m: any) => m.InstructorSessionResultPageModule),
+          .then((m: any) => m.InstructorSessionResultPageModule),
       },
     ],
   },
@@ -125,19 +133,19 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('./instructor-student-list-page/instructor-student-list-page.module')
-            .then((m: any) => m.InstructorStudentListPageModule),
+          .then((m: any) => m.InstructorStudentListPageModule),
       },
       {
         path: 'records',
         loadChildren: () => import('./instructor-student-records-page/instructor-student-records-page.module')
-            .then((m: any) => m.InstructorStudentRecordsPageModule),
+          .then((m: any) => m.InstructorStudentRecordsPageModule),
       },
     ],
   },
   {
     path: 'search',
     loadChildren: () => import('./instructor-search-page/instructor-search-page.module')
-        .then((m: any) => m.InstructorSearchPageModule),
+      .then((m: any) => m.InstructorSearchPageModule),
     data: {
       pageTitle: 'Search Students',
     },
@@ -145,12 +153,12 @@ const routes: Routes = [
   {
     path: 'notifications',
     loadChildren: () => import('./instructor-notifications-page/instructor-notifications-page.module')
-        .then((m: any) => m.InstructorNotificationsPageModule),
+      .then((m: any) => m.InstructorNotificationsPageModule),
   },
   {
     path: 'help',
     loadChildren: () => import('../pages-help/instructor-help-page/instructor-help-page.module')
-        .then((m: any) => m.InstructorHelpPageModule),
+      .then((m: any) => m.InstructorHelpPageModule),
     data: {
       instructorGettingStartedPath: '/web/instructor/getting-started',
     },
@@ -158,7 +166,7 @@ const routes: Routes = [
   {
     path: 'getting-started',
     loadChildren: () => import('../pages-help/instructor-help-page/instructor-help-getting-started-page.module')
-        .then((m: any) => m.InstructorHelpGettingStartedPageModule),
+      .then((m: any) => m.InstructorHelpGettingStartedPageModule),
     data: {
       instructorHelpPath: '/web/instructor/help',
     },
@@ -185,4 +193,4 @@ const routes: Routes = [
     RouterModule.forChild(routes),
   ],
 })
-export class InstructorPagesModule {}
+export class InstructorPagesModule { }

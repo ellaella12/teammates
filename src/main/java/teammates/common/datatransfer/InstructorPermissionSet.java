@@ -95,6 +95,7 @@ public class InstructorPermissionSet {
         copy.setCanModifyCourse(canModifyCourse);
         copy.setCanModifyInstructor(canModifyInstructor);
         copy.setCanModifySession(canModifySession);
+        copy.setCanViewSessionSettings(canViewSessionSettings);
         copy.setCanModifyStudent(canModifyStudent);
         copy.setCanViewStudentInSections(canViewStudentInSections);
         copy.setCanViewSessionInSections(canViewSessionInSections);
@@ -181,6 +182,7 @@ public class InstructorPermissionSet {
         ips.setCanModifyInstructor(legacyMap.getOrDefault(Const.InstructorPermissions.CAN_MODIFY_INSTRUCTOR, false));
         ips.setCanModifyStudent(legacyMap.getOrDefault(Const.InstructorPermissions.CAN_MODIFY_STUDENT, false));
         ips.setCanModifySession(legacyMap.getOrDefault(Const.InstructorPermissions.CAN_MODIFY_SESSION, false));
+        ips.setCanViewSessionSettings(legacyMap.getOrDefault(Const.InstructorPermissions.CAN_VIEW_SESSION_SETTINGS, false));
         ips.setCanViewStudentInSections(
                 legacyMap.getOrDefault(Const.InstructorPermissions.CAN_VIEW_STUDENT_IN_SECTIONS, false));
         ips.setCanViewSessionInSections(

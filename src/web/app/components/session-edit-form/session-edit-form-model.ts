@@ -21,6 +21,10 @@ export enum SessionEditFormMode {
    * Editing the existing feedback session.
    */
   EDIT,
+  /**
+   * Viewing the existing feedback session.
+   */
+  VIEW,
 }
 
 /**
