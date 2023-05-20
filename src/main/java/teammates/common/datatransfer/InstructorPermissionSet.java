@@ -165,6 +165,7 @@ public class InstructorPermissionSet {
         legacyFormat.put(Const.InstructorPermissions.CAN_MODIFY_COURSE, canModifyCourse);
         legacyFormat.put(Const.InstructorPermissions.CAN_MODIFY_INSTRUCTOR, canModifyInstructor);
         legacyFormat.put(Const.InstructorPermissions.CAN_MODIFY_SESSION, canModifySession);
+        legacyFormat.put(Const.InstructorPermissions.CAN_VIEW_SESSION_SETTINGS, canViewSessionSettings);
         legacyFormat.put(Const.InstructorPermissions.CAN_MODIFY_STUDENT, canModifyStudent);
         legacyFormat.put(Const.InstructorPermissions.CAN_VIEW_STUDENT_IN_SECTIONS, canViewStudentInSections);
         legacyFormat.put(Const.InstructorPermissions.CAN_VIEW_SESSION_IN_SECTIONS, canViewSessionInSections);
