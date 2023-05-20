@@ -44,7 +44,9 @@ public class InstructorPermissionSet {
         this.canModifySession = canModifySession;
     }
 
-    public boolean isCanViewSessionSettings() { return canViewSessionSettings; }
+    public boolean isCanViewSessionSettings() {
+        return canViewSessionSettings;
+    }
 
     public void setCanViewSessionSettings(boolean canViewSessionSettings) {
         this.canViewSessionSettings = canViewSessionSettings;
@@ -112,6 +114,8 @@ public class InstructorPermissionSet {
             return canModifyInstructor;
         case Const.InstructorPermissions.CAN_MODIFY_SESSION:
             return canModifySession;
+        case Const.InstructorPermissions.CAN_VIEW_SESSION_SETTINGS:
+            return canViewSessionSettings;
         case Const.InstructorPermissions.CAN_MODIFY_STUDENT:
             return canModifyStudent;
         case Const.InstructorPermissions.CAN_VIEW_STUDENT_IN_SECTIONS:
@@ -182,7 +186,8 @@ public class InstructorPermissionSet {
         ips.setCanModifyInstructor(legacyMap.getOrDefault(Const.InstructorPermissions.CAN_MODIFY_INSTRUCTOR, false));
         ips.setCanModifyStudent(legacyMap.getOrDefault(Const.InstructorPermissions.CAN_MODIFY_STUDENT, false));
         ips.setCanModifySession(legacyMap.getOrDefault(Const.InstructorPermissions.CAN_MODIFY_SESSION, false));
-        ips.setCanViewSessionSettings(legacyMap.getOrDefault(Const.InstructorPermissions.CAN_VIEW_SESSION_SETTINGS, false));
+        ips.setCanViewSessionSettings(
+                legacyMap.getOrDefault(Const.InstructorPermissions.CAN_VIEW_SESSION_SETTINGS, false));
         ips.setCanViewStudentInSections(
                 legacyMap.getOrDefault(Const.InstructorPermissions.CAN_VIEW_STUDENT_IN_SECTIONS, false));
         ips.setCanViewSessionInSections(

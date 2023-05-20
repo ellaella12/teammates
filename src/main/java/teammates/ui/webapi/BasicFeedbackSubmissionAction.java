@@ -179,11 +179,11 @@ abstract class BasicFeedbackSubmissionAction extends Action {
         if (isInstructor) {
             gateKeeper.verifyAccessible(
                     logic.getInstructorForGoogleId(feedbackSession.getCourseId(), userInfo.getId()), feedbackSession,
-                    Const.InstructorPermissions.CAN_MODIFY_SESSION);
+                    Const.InstructorPermissions.CAN_VIEW_SESSION_SETTINGS);
         } else {
             gateKeeper.verifyAccessible(
                     logic.getInstructorForGoogleId(feedbackSession.getCourseId(), userInfo.getId()), feedbackSession,
-                    Const.InstructorPermissions.CAN_MODIFY_SESSION);
+                    Const.InstructorPermissions.CAN_VIEW_SESSION_SETTINGS);
         }
     }
 
